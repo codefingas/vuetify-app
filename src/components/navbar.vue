@@ -18,7 +18,15 @@
            </v-btn>                                                              
        </v-toolbar>
 
-       <v-navigation-drawer app temporary v-model="drawer" color="#9652ff">
+       <v-navigation-drawer app fixed temporary v-model="drawer" color="#9652ff">
+           <v-layout column align-center>
+               <v-flex class="mt-5">
+                   <v-avatar size="100">
+                       <img src="/avatar-1.png">
+                   </v-avatar>
+                   <p class="white--text subheading  mt-1">The Net Ninja</p>
+               </v-flex>
+           </v-layout>
           <v-list-item  v-for="link in links" :key="link.text" router :to="link.route" class="mt-2">
                 <v-list-tile-action>
                     <v-icon class="white--text">
@@ -38,6 +46,8 @@
 export default {
     data(){
         return{
+             clipped: false,
+            fixed: false,
             drawer : false,
             links : [
                 {icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/'},
