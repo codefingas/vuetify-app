@@ -12,6 +12,30 @@
 
             <v-spacer></v-spacer>
 
+            <div class="text-center">
+            <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                dark
+                v-on="on"
+                text
+                class="grey--text"
+                >
+                <v-icon left>mdi-chevron-down</v-icon>
+                Menu 
+                </v-btn>
+            </template>
+                    <v-list>
+                        <v-list-item
+                        v-for="(item, index) in dropdownLinks"
+                        :key="index"
+                        router :to="item.route"
+                        >
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+            </v-menu>
+        </div>
            <v-btn text color="grey">
                <span>Sign Out</span>
                <v-icon right>mdi-exit-to-app</v-icon>
@@ -53,7 +77,12 @@ export default {
                 {icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/'},
                 {icon: 'mdi-folder', text: 'My Projects', route: '/projects'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/account' }
-            ]
+            ],
+            dropdownLinks: [
+                { title: 'Dashboard', route:"/" },
+                { title: 'My projects', route:"/projects" },
+                { title: 'Team', route: "/account" },
+            ],
         }
     }
 }
