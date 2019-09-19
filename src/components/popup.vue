@@ -54,7 +54,6 @@ export default {
     methods: {
         addProject(){
             if(this.$refs.addProjectForm.validate()){//checking if the form is valid
-                console.log(this.title, this.information, this.due);
                 this.loading = true;//showing loading animation from button when item is added to database
                 
             const project = {
@@ -66,7 +65,7 @@ export default {
             };
 
                     db.collection('projects').add(project).then(() => {
-                        console.log('New project added');
+                        // console.log('New project added');//did a check to confirm the addition of a project
                         this.loading = false;//removing loading animation from button when item is added to database
                         this.dialogShowing = false;//closing the dialog when project has been added to database
                         this.$emit('projectAdded');//emmitting event to show that project is added

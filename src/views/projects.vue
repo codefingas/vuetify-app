@@ -28,16 +28,12 @@
 </template>
 
 <script>
+import db from '@/fb';
 
 export default {
   data(){
     return {
-       projects: [
-        {title: 'Design a new Website', person: 'Chun Li', due: '1st Jan 2019', status: 'ongoing', content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dolor suscipit, id, et ipsam, consequuntur ut inventore veniam sapiente ex assumenda sit amet. Magnam doloremque accusamus ipsum iste, iusto perferendis!'},
-        {title: 'Code up the Homepage', person: 'The Net Ninja', due: '10th Jan 2019', status: 'completed', content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dolor suscipit, id, et ipsam, consequuntur ut inventore veniam sapiente ex assumenda sit amet. Magnam doloremque accusamus ipsum iste, iusto perferendis!'},
-        {title: 'Design Video thumbnails', person: 'Gouken', due: '20th Dec 2018', status: 'completed',content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dolor suscipit, id, et ipsam, consequuntur ut inventore veniam sapiente ex assumenda sit amet. Magnam doloremque accusamus ipsum iste, iusto perferendis!' },
-        {title: 'Create a community forum', person: 'Ryu', due: '20th Oct 2018', status: 'overdue', content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dolor suscipit, id, et ipsam, consequuntur ut inventore veniam sapiente ex assumenda sit amet. Magnam doloremque accusamus ipsum iste, iusto perferendis!'}
-      ]
+       projects: []
     }
   },
   computed: {
@@ -46,6 +42,21 @@ export default {
         return project.person === 'The Net Ninja';
       })
     }
+  },
+  
+  created() {
+      db.collection('projects').onSnapshot(res => {//callback function for every time a document is added
+        const changes = res.docChanges();
+
+        changes.forEach(change => {//looping thorugh each changes in the data base
+            if (change.type === 'added') {
+              this.projects.push({
+                ...change.doc.data(),//pushing the document's data to projects array
+                id : change.doc.id()//pushing the documents id to the array too
+              })
+            }
+        });
+      })
   }
 };
 </script>

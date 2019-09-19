@@ -70,22 +70,32 @@
 </template>
 
 <script>
+import db from '@/fb'
 
 export default {
   data() {
     return {
-      projects: [
-        {title: 'Design a new Website', person: 'Chun Li', due: '1st Jan 2019', status: 'ongoing'},
-        {title: 'Code up the Homepage', person: 'The Net Ninja', due: '10th Jan 2019', status: 'completed'},
-        {title: 'Design Video thumbnails', person: 'Gouken', due: '20th Dec 2018', status: 'completed'},
-        {title: 'Create a community forum', person: 'Ryu', due: '20th Oct 2018', status: 'overdue'}
-      ]
+      projects: []
     }
   },
   methods: {
     sortBy(prop) {
       this.projects.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
+  },
+  created() {
+      db.collection('projects').onSnapshot(res => {//callback function for every time a document is added
+        const changes = res.docChanges();
+
+        changes.forEach(change => {//looping thorugh each changes in the data base
+            if (change.type === 'added') {
+              this.projects.push({
+                ...change.doc.data(),//pushing the document's data to projects array
+                id : change.doc.id()//pushing the documents id to the array too
+              })
+            }
+        });
+      })
   }
 };
 </script>
