@@ -8,7 +8,7 @@
           <template v-slot:activator="{ on }">
             <v-btn small text color="grey" @click="sortBy('title')" v-on="on">
                 <v-icon left small>mdi-folder</v-icon>
-                <span class="caption text-lowercase">By project name</span>
+                <span class="caption text-lowercase">Sort by project name</span>
               </v-btn>
           </template>
           <span>sort project by project name</span>
@@ -18,10 +18,10 @@
           <template v-slot:activator="{ on }">
             <v-btn small text color="grey" @click="sortBy('person')" v-on="on">
                 <v-icon left small>mdi-folder</v-icon>
-                <span class="caption text-lowercase">By person</span>
+                <span class="caption text-lowercase">Sort by person</span>
               </v-btn>
           </template>
-          <span>sort project by project person</span>
+          <span>sort project by person</span>
          </v-tooltip>
        </v-layout>
 
