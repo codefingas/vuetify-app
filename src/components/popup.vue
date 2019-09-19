@@ -16,16 +16,18 @@
                <h2>Add a project</h2>
            </v-card-title>
            <v-card-text>
-               <v-text-field v-model="title" label="Title" prepend-icon="mdi-folder"></v-text-field>
-               <v-textarea v-model="information" label="Description" prepend-icon="mdi-grease-pencil"></v-textarea>
-                <v-menu>
-                   <template v-slot:activator="{ on }">
-                    <v-text-field v-on="on" v-bind:value="due" label="Due date" prepend-icon="mdi-calendar"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="due"></v-date-picker>
-                </v-menu> 
+               <v-form ref="addProjectForm">
+                     <v-text-field v-model="title" label="Title" prepend-icon="mdi-folder" v-bind:rules="inputRules"></v-text-field>
+                    <v-textarea v-model="information" label="Description" prepend-icon="mdi-grease-pencil" v-bind:rules="inputRules"></v-textarea>
+                        <v-menu>
+                        <template v-slot:activator="{ on }">
+                            <v-text-field v-on="on" v-bind:value="due" label="Due date" prepend-icon="mdi-calendar" v-bind:rules="inputRules"></v-text-field>
+                        </template>
+                            <v-date-picker v-model="due"></v-date-picker>
+                        </v-menu> 
 
-               <v-btn @click="appProject" class="success mx-0">Add project</v-btn>
+                    <v-btn @click="addProject" class="success mx-0">Add project</v-btn>
+               </v-form>
            </v-card-text>
        </v-card>
    </v-dialog>
@@ -40,13 +42,19 @@ export default {
         return {
             title: '',
             information: '',
-            due: null
+            due: null,
+            inputRules: [
+                v => v.length >= 3 || 'Maximum length is 3'
+            ]
         }
     },
     methods: {
-        appProject(){
+        addProject(){
+            if(this.$refs.addProjectForm.validate()){//checking if the form is valid
             console.log(this.title, this.information, this.due);
         }
+
+            }
     },
     computed: {
         formattedDate(){
