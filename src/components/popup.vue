@@ -36,6 +36,7 @@
 
 <script>
 import dateFormatter from 'date-fns/format';
+import db from '@/fb';
 
 export default {
     data() {
@@ -51,10 +52,23 @@ export default {
     methods: {
         addProject(){
             if(this.$refs.addProjectForm.validate()){//checking if the form is valid
-            console.log(this.title, this.information, this.due);
-        }
+                console.log(this.title, this.information, this.due);
+
+            const project = {
+                title : this.title,
+                content : this.information,
+                due : this.due,
+                status: 'Ongoing',
+                person: 'Doro'
+            };
+
+            db.collection('projects').add(project).then(() => {
+                console.log('New project added');
+            })
 
             }
+
+        }
     },
     computed: {
         formattedDate(){
