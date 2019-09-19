@@ -65,12 +65,12 @@ export default {
                 person: 'Doro'
             };
 
-            db.collection('projects').add(project).then(() => {
-                console.log('New project added');
-                this.loading = false;//removing loading animation from button when item is added to database
-                this.dialogShowing = false;//closing the dialog when project has been added to database
-                
-            })
+                    db.collection('projects').add(project).then(() => {
+                        console.log('New project added');
+                        this.loading = false;//removing loading animation from button when item is added to database
+                        this.dialogShowing = false;//closing the dialog when project has been added to database
+                        this.$emit('projectAdded');//emmitting event to show that project is added
+                    });
 
             }
 
