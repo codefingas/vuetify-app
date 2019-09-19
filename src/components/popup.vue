@@ -1,5 +1,5 @@
 <template>
-   <v-dialog max-width="600px">
+   <v-dialog max-width="600px" v-model="dialogShowing">
         <template v-slot:activator="{ on }">
                 <v-btn
                     class="success"
@@ -26,7 +26,7 @@
                             <v-date-picker v-model="due"></v-date-picker>
                         </v-menu> 
 
-                    <v-btn @click="addProject" class="success mx-0">Add project</v-btn>
+                    <v-btn @click="addProject" class="success mx-0" :loading="loading">add project</v-btn>
                </v-form>
            </v-card-text>
        </v-card>
@@ -46,14 +46,17 @@ export default {
             due: null,
             inputRules: [
                 v => v.length >= 3 || 'Maximum length is 3'
-            ]
+            ],
+            loading : false,
+            dialogShowing : false
         }
     },
     methods: {
         addProject(){
             if(this.$refs.addProjectForm.validate()){//checking if the form is valid
                 console.log(this.title, this.information, this.due);
-
+                this.loading = true;//showing loading animation from button when item is added to database
+                
             const project = {
                 title : this.title,
                 content : this.information,
@@ -64,6 +67,9 @@ export default {
 
             db.collection('projects').add(project).then(() => {
                 console.log('New project added');
+                this.loading = false;//removing loading animation from button when item is added to database
+                this.dialogShowing = false;//closing the dialog when project has been added to database
+                
             })
 
             }
