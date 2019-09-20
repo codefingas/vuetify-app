@@ -5,7 +5,7 @@
         <v-expansion-panels>
           <v-expansion-panel
             v-for="project in myProjects"
-              :key="project.title"
+              :key="project.id"
           >
             <v-expansion-panel-header>{{project.person}}</v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -43,7 +43,6 @@ export default {
       })
     }
   },
-  
   created() {
       db.collection('projects').onSnapshot(res => {//callback function for every time a document is added
         const changes = res.docChanges();

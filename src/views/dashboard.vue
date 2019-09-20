@@ -25,7 +25,7 @@
          </v-tooltip>
        </v-layout>
 
-        <v-card v-for="project in projects" :key="project.title">
+        <v-card v-for="project in projects" :key="project.id">
            <v-layout row wrap v-bind:class="`item pa-3 project ${project.status}`">
                 <v-flex xs12 md6>
                   <div class="ml-5 pa-3">
