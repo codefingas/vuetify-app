@@ -58,7 +58,7 @@
 
                  <v-flex xs12 sm4 md2>
                    <div class="right">
-                      <v-chip small v-bind:class="`${project.status} caption my-2 white--text mr-3`">
+                      <v-chip small v-bind:class="`${project.status.toLowerCase()} caption my-2 white--text mr-3`">
                         {{project.status}}
                       </v-chip>
                    </div>
@@ -91,7 +91,7 @@ export default {
             if (change.type === 'added') {
               this.projects.push({
                 ...change.doc.data(),//pushing the document's data to projects array
-                id : change.doc.id()//pushing the documents id to the array too
+                id : change.doc.id//pushing the documents id to the array too
               })
             }
         });

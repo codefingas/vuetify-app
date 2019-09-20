@@ -12,7 +12,7 @@
               <v-card>
                 <v-card-text class="px-4 grey--text">
                     <div class="font-weight-bold">
-                      due by xx.xx.xx
+                      due by {{project.due}}
                     </div>
                     <div>
                       {{project.content}}
@@ -39,7 +39,7 @@ export default {
   computed: {
     myProjects() {
       return this.projects.filter(project => {
-        return project.person === 'The Net Ninja';
+        return project.person === 'Doro';
       })
     }
   },
@@ -51,7 +51,7 @@ export default {
             if (change.type === 'added') {
               this.projects.push({
                 ...change.doc.data(),//pushing the document's data to projects array
-                id : change.doc.id()//pushing the documents id to the array too
+                id : change.doc.id//pushing the documents id to the array too
               })
             }
         });

@@ -16,6 +16,4 @@ var firebaseConfig = {
 
   const db = firebase.firestore();
 
-  db.settings({timestampsInSnapshots : true});//setting the timestamps in snapshots to true - because of new config from firebase
-
   export default db;
